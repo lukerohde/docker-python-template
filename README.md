@@ -1,13 +1,10 @@
 # docker-python-template
 
-This project sets up a python development environment with a postgresql database.   Bundle install and migrating the database is left to docker runtime (via a script in app/start.docker) rather than at build time (which is a pain because everytime your gemfile changes it has to install all gems from scratch).  
+This project sets up a python development environment with a postgresql database and a jupyter notebook.   `pip install` is left to docker runtime (via a script in app/docker-start) rather than at build time (which is a pain because every time your requirements change it has to install all packages from scratch).  
 
-Check the app.dockerfile which has several python configs to choose from.  Only basic python is uncommented.
-
-Also check the app/docker-start.  It also only has basic python startup uncommented, with some rails examples commented out.
 
 ```
-git clone git@github.com:union-software-cooperative/docker-python-template.git your-project-name
+git clone git@github.com:lukerohde/docker-python-template.git your-project-name
 ```
 
 ## Setup git for your new project
@@ -55,11 +52,11 @@ becomes just
 
 `dcs && dcu -d && dcl -tf`
 
-but i have a shortcut for that
+but i have a shortcut for that too
 
 `dcrestart`
 
-The first alias makes editing and reloading your bash_profile easy.
+The first alias `bp` makes editing and reloading your bash_profile easy.
 
 The second command `get-python` makes getting this repo easy.
 
@@ -98,12 +95,12 @@ ddeleteall() {
 ```
 
 ## Persisting data
-Mount your pgdata and bundle data on an external docker volume, so if you rebuild or remove your db or www containers you don't loose all your data and don't have to reinstall all your gems.  I also persist root, to preserve command history etc...  This is done by default in the docker-compose.yaml file.
+This script mounts your pgdata and package data on an external docker volume, so if you rebuild or remove your db or www containers you don't loose all your data and don't have to reinstall all your packages.  I also persist root, to preserve command history etc...  This is done by default in the docker-compose.yaml file.
 
 ## developing with docker on osx
 On osx docker volume mounts to the host are suuupperrr slow.
 
-mount your app volume like this in the override file
+Use the override file to mount your app volume with :delegated
 ```
 cp docker-compose.override.yml.example docker-compose.override.yml
 ```
@@ -114,7 +111,7 @@ cp docker-compose.override.yml.example docker-compose.override.yml
       - ./app:/app:delegated
 ```
 
-The example override file will not actually run your app.  Instead it runs an override command that hangs the container to leave it running so you can shell in and run your application yourself.  This makes debugging easy.  
+The provided docker-compose.override.yaml.example file will not actually run your app.  Instead it runs docker-start.override that hangs the container to leave it running so you can shell in and run your application yourself.  This makes debugging easy.  
 
 The short cut for running your app then shelling in is
 `dcub app` 

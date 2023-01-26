@@ -4,9 +4,7 @@ pip install --no-cache-dir -r /app/requirements.txt
 
 echo Expecting you to run 
 echo # docker-compose up www && docker-compose exec /bin/bash
-echo # pip 
-echo # OR
-echo # bundle exec rails s -p 3000 -b '0.0.0.0'
+echo # python start.py
 
 # THIS KEEPS THE CONTAINER RUNNING
 # AND GRACEFULLY KILLS IT TOO

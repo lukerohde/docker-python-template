@@ -2,6 +2,7 @@ import signal
 import threading
 from application import Application
 
+# This overly complicated start provides a basic way to run a background thread
 app = Application()
 
 def start_app():

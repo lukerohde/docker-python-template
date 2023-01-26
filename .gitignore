@@ -4,4 +4,4 @@ docker-compose.override.yml
 docker-sync.yml
 .env
 __pycache__
-pip_app
+packages

@@ -1,12 +1,5 @@
 version: "3"
 services:
-#   db:
-#     ports:
-#       - "5432:5432"
-#     networks:
-#       - development
-# #    volumes:
-# #      - ./backup.sql.gz:/docker-entrypoint-initdb.d/seed.sql.gz
   app:
     volumes:
       - ./app:/app:delegated
@@ -16,12 +9,12 @@ services:
       - "$APP_PORT:3000"
     networks:
       development:
-#        aliases:
-#          - my_app.domain.org.au
-volumes:
-  bundle:
-  # pgdata:
+  db:
+    ports:
+      - "5432:5432"
+    networks:
+      - development
+#    volumes:
+#      - ./backup.sql.gz:/docker-entrypoint-initdb.d/seed.sql.gz
 networks:
   development:
-#    external:
-#      name: external-network-name # docker network ls
