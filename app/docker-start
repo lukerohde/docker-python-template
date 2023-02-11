@@ -1,5 +1,5 @@
 #!/bin/sh
-pip install --no-cache-dir -r /app/requirements.txt
+pip install --user --no-cache -r ./requirements.txt
 
 python3 start.py
 

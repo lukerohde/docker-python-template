@@ -14,7 +14,7 @@ services:
       - db
     volumes:
       - ./app:/app
-      - ./packages:/usr/local/lib/python3.11/site-packages
+      - ./packages:/home/pyuser/.local # /usr/local/lib/python3.11/site-packages
       - root_app:/root # for bash history etc
     tty: true
     stdin_open: true
