@@ -5,10 +5,11 @@ RUN apt-get install -qq python3-pip
 
 RUN adduser pyuser
 USER pyuser
+ENV PATH=/home/pyuser/.local/bin:"$PATH"
 
 RUN mkdir /home/pyuser/app
 WORKDIR /home/pyuser/app
 COPY ./app /home/pyuser/app
-RUN pip install --user --no-cache -r ./requirements.txt
+RUN pip install --user -r ./requirements.txt
 
 

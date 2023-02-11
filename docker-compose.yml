@@ -12,13 +12,9 @@ services:
       - POSTGRES_PASSWORD
     links:
       - db
-    volumes:
-      - ./app:/app
-      - ./packages:/home/pyuser/.local # /usr/local/lib/python3.11/site-packages
-      - root_app:/root # for bash history etc
     tty: true
     stdin_open: true
-    command: ./docker-start
+    command: "/usr/bin/python start.py"
   db:
     image: postgres:9.6.8
     restart: unless-stopped
@@ -29,16 +25,12 @@ services:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
     volumes:
-      - pgdata:/pgdata
-      - root_db:/root # for bash history etc
+      - db_pgdata:/pgdata
   notebook:
     image: jupyter/scipy-notebook:latest
-    ports:
-      - "8888:8888"
     volumes:
-      - "./notebook:/home/jovyan/work"
+      - notebook_data:/home/jovyan/work
     command: "start-notebook.sh --NotebookApp.token='${JUPYTER_TOKEN}'"
 volumes:
-  root_app:
-  root_db:
-  pgdata:
+  db_pgdata:
+  notebook_data:

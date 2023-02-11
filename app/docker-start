@@ -1,5 +1,0 @@
-#!/bin/sh
-pip install --user --no-cache -r ./requirements.txt
-
-python3 start.py
-
