@@ -14,7 +14,7 @@ services:
       - db
     tty: true
     stdin_open: true
-    command: "/usr/bin/python start.py"
+    command: "python start.py"
   db:
     image: postgres:9.6.8
     restart: unless-stopped
