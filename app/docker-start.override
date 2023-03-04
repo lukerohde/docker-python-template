@@ -5,6 +5,39 @@ echo -------------------------------------------------------------
 echo Running $0.  This hangs the container and so you can shell in
 echo \# docker-compose up www \&\& docker-compose exec /bin/bash
 echo \# python start.py
+echo -------------------------------------------------------------
+echo For django, uncomment django stuff in requirements.txt
+echo \# docker-compose up www \&\& docker-compose exec /bin/bash
+echo \# cd app 
+echo \# django-admin startproject myproject .
+echo \# rm application.py start.py
+echo -- update settings.py for postgres like this; --
+cat << 'EOF'
+import os
+DATABASES = { 
+    'default': { 
+        'ENGINE': 'django.db.backends.postgresql', 
+        'NAME': os.environ['POSTGRES_DB'],  
+        'HOST': os.environ['POSTGRES_HOST'],  
+        'PORT': os.environ['POSTGRES_PORT'],  
+        'USER': os.environ['POSTGRES_USER'],  
+        'PASSWORD': os.environ['POSTGRES_PASSWORD'] ,     
+
+    }, # Test Database Configuration 
+    'testdb': {  
+        'ENGINE': 'django.db.backends.postgresql', 
+        'NAME': os.environ['POSTGRES_DB'] + "_test",  
+        'HOST': os.environ['POSTGRES_HOST'],  
+        'PORT': os.environ['POSTGRES_PORT'],  
+        'USER': os.environ['POSTGRES_USER'],  
+        'PASSWORD': os.environ['POSTGRES_PASSWORD'] ,     
+    }
+}
+EOF
+echo -- end of settings.py -- 
+echo \# python manage.py migrate
+echo \# python manage.py createsuperuser --noinput
+echo \# python manage.py runserver 0.0.0.0:3000
 
 # THIS KEEPS THE CONTAINER RUNNING
 # AND GRACEFULLY KILLS IT TOO

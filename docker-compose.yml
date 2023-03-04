@@ -6,31 +6,41 @@ services:
       dockerfile: ./app.dockerfile
     restart: unless-stopped
     environment:
+      - APP_PORT
       - POSTGRES_DB
       - POSTGRES_HOST
       - POSTGRES_USER
       - POSTGRES_PASSWORD
+      - POSTGRES_PORT
+      - REDIS_HOST
+      - REDIS_PASSWORD
+      - REDIS_PORT_NUMBER
+      - DJANGO_SECRET_KEY
+      - DJANGO_SUPERUSER_USERNAME
+      - DJANGO_SUPERUSER_PASSWORD
+      - DJANGO_SUPERUSER_EMAIL
     links:
-      - db
+      - pg
     tty: true
     stdin_open: true
-    command: "python start.py"
-  db:
-    image: postgres:9.6.8
+    command: "python manage.py runserver 0.0.0.0:8000"
+    #command: "python start.py"
+  pg:
+    image: postgres:15.2
     restart: unless-stopped
     environment:
-      - PGDATA=/pgdata
+      - PGDATA=/pg_data
       - POSTGRES_DB
       - POSTGRES_HOST
       - POSTGRES_USER
       - POSTGRES_PASSWORD
     volumes:
-      - db_pgdata:/pgdata
+      - pg_data:/pg_data
   notebook:
     image: jupyter/scipy-notebook:latest
     volumes:
       - notebook_data:/home/jovyan/work
     command: "start-notebook.sh --NotebookApp.token='${JUPYTER_TOKEN}'"
 volumes:
-  db_pgdata:
+  pg_data:
   notebook_data:

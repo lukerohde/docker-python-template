@@ -11,18 +11,18 @@ services:
       - $APP_PORT:3000
     networks:
       development:
-  db:
+  pg:
     ports:
       - $POSTGRES_PORT:5432
     networks:
       - development
     volumes:
-      - ./.pgdata:/pgdata
+      - ./.pg_data:/pg_data
       - db_root:/root # for bash history etc
 #      - ./backup.sql.gz:/docker-entrypoint-initdb.d/seed.sql.gz
   notebook:
     volumes:
-      - ./.notebook:/home/jovyan/work
+      - ./.notebook_data:/home/jovyan/work
     ports:
       - $NOTEBOOK_PORT:8888
 networks:

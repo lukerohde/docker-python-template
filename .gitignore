@@ -3,4 +3,4 @@ docker-compose.override.yml
 __pycache__
 .packages
 .notebook
-.pgdata
+.pg_data
