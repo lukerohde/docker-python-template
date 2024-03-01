@@ -8,23 +8,24 @@ services:
     command:
       - ./docker-start.override
     ports:
-      - $APP_PORT:3000
+      - 3000:3000
     networks:
       development:
-  pg:
-    ports:
-      - $POSTGRES_PORT:5432
-    networks:
-      - development
-    volumes:
-      - ./.pg_data:/pg_data
-      - db_root:/root # for bash history etc
+  # pg:
+  #   ports:
+  #     - $POSTGRES_PORT:5432
+  #   networks:
+  #     - development
+  #   volumes:
+  #     - ./.pg_data:/pg_data
+  #     - db_root:/root # for bash history etc
 #      - ./backup.sql.gz:/docker-entrypoint-initdb.d/seed.sql.gz
   notebook:
     volumes:
-      - ./.notebook_data:/home/jovyan/work
+      - ./notebook_data:/home/jovyan/work
+      - $HOME/.aws:/home/jovyan/.aws
     ports:
-      - $NOTEBOOK_PORT:8888
+      - 8888:8888
 networks:
   development:
 volumes:

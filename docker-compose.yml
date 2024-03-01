@@ -19,28 +19,37 @@ services:
       - DJANGO_SUPERUSER_USERNAME
       - DJANGO_SUPERUSER_PASSWORD
       - DJANGO_SUPERUSER_EMAIL
-    links:
-      - pg
+      - AWS_DEFAULT_REGION
+      - AWS_CA_BUNDLE=/cert/ZscalerRootCertificate-2048-SHA256.crt
+      - AWS_PROFILE
+    # links:
+    #   - pg
     tty: true
     stdin_open: true
     command: "python manage.py runserver 0.0.0.0:8000"
     #command: "python start.py"
-  pg:
-    image: postgres:15.2
-    restart: unless-stopped
-    environment:
-      - PGDATA=/pg_data
-      - POSTGRES_DB
-      - POSTGRES_HOST
-      - POSTGRES_USER
-      - POSTGRES_PASSWORD
     volumes:
-      - pg_data:/pg_data
+      - $HOME/.aws:/root/.aws
+  # pg:
+  #   image: postgres:15.2
+  #   restart: unless-stopped
+  #   environment:
+  #     - PGDATA=/pg_data
+  #     - POSTGRES_DB
+  #     - POSTGRES_HOST
+  #     - POSTGRES_USER
+  #     - POSTGRES_PASSWORD
+  #   volumes:
+  #     - pg_data:/pg_data
   notebook:
-    image: jupyter/scipy-notebook:latest
+    build:
+      context: .
+      dockerfile: ./notebook.dockerfile
+    environment:
+      - AWS_CA_BUNDLE=/cert/ZscalerRootCertificate-2048-SHA256.crt
     volumes:
-      - notebook_data:/home/jovyan/work
+      - notebook_data:/home/jovyan/work:delegated
     command: "start-notebook.sh --NotebookApp.token='${JUPYTER_TOKEN}'"
 volumes:
-  pg_data:
+  # pg_data:
   notebook_data:
