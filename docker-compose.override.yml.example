@@ -7,6 +7,10 @@ services:
       - app_user:/home/pyuser # for bash history etc
     command:
       - ./docker-start.override
+    environment:
+      - AWS_DEFAULT_REGION
+      - AWS_CA_BUNDLE=/cert/ZscalerRootCertificate-2048-SHA256.crt
+      - AWS_PROFILE
     ports:
       - 3000:3000
     networks:
@@ -21,7 +25,7 @@ services:
   #     - db_root:/root # for bash history etc
 #      - ./backup.sql.gz:/docker-entrypoint-initdb.d/seed.sql.gz
   notebook:
-      environment:
+    environment:
       - AWS_CA_BUNDLE=/cert/ZscalerRootCertificate-2048-SHA256.crt
       - AWS_PROFILE
       - AWS_DEFAULT_REGION

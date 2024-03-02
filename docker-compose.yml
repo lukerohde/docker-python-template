@@ -19,9 +19,6 @@ services:
       - DJANGO_SUPERUSER_USERNAME
       - DJANGO_SUPERUSER_PASSWORD
       - DJANGO_SUPERUSER_EMAIL
-      - AWS_DEFAULT_REGION
-      - AWS_CA_BUNDLE=/cert/ZscalerRootCertificate-2048-SHA256.crt
-      - AWS_PROFILE
     # links:
     #   - pg
     tty: true

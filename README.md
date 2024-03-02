@@ -7,7 +7,7 @@ This project sets up a python development environment with a postgresql database
 git clone git@github.com:lukerohde/docker-python-template.git your-project-name
 ```
 
-## Setup git for your new project
+## If starting a new project and not updating this template
 
 unlink the docker-python-template repo
 ```
