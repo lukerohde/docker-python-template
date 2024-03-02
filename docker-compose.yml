@@ -45,8 +45,6 @@ services:
     build:
       context: .
       dockerfile: ./notebook.dockerfile
-    environment:
-      - AWS_CA_BUNDLE=/cert/ZscalerRootCertificate-2048-SHA256.crt
     volumes:
       - notebook_data:/home/jovyan/work:delegated
     command: "start-notebook.sh --NotebookApp.token='${JUPYTER_TOKEN}'"

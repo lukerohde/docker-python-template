@@ -25,6 +25,15 @@ git commit -m "Initial commit."
 git push origin master
 ```
 
+## Setup your env and overrides
+
+```
+cp .env.example .env
+cp docker-compose.override.yml.example docker-compose.override.yml
+```
+
+Check these to set your local credentials and environment specifics such as mapping in your AWS credentials, zscaler certs, and delegating your development directory.
+
 ## basic docker usage
 run containers (daemonised)
 ```

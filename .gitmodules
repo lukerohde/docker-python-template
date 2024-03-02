@@ -1,0 +1,3 @@
+[submodule "notebook_data/amazon-bedrock-workshop"]
+	path = notebook_data/amazon-bedrock-workshop
+	url = git@github.com:aws-samples/amazon-bedrock-workshop.git

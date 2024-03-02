@@ -5,3 +5,4 @@ __pycache__
 .notebook
 .pg_data
 cert
+.ipynb_checkpoints

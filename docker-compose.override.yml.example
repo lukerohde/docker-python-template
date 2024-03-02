@@ -21,9 +21,13 @@ services:
   #     - db_root:/root # for bash history etc
 #      - ./backup.sql.gz:/docker-entrypoint-initdb.d/seed.sql.gz
   notebook:
+      environment:
+      - AWS_CA_BUNDLE=/cert/ZscalerRootCertificate-2048-SHA256.crt
+      - AWS_PROFILE
+      - AWS_DEFAULT_REGION
     volumes:
       - ./notebook_data:/home/jovyan/work
-      - $HOME/.aws:/home/jovyan/.aws
+      - $HOME/.aws:/home/jovyan/.aws:ro
     ports:
       - 8888:8888
 networks:
